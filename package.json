@@ -1,0 +1,104 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "dream-eater",
+  "title": "Dream Eater",
+  "description": "Toggle sleep prevention, set an hours/minutes/seconds timer, and check verified status from compact Raycast commands.",
+  "icon": "dream-eater.png",
+  "author": "christopher_fathallah",
+  "platforms": [
+    "macOS"
+  ],
+  "categories": [
+    "System"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "awake",
+    "caffeine",
+    "caffeinate",
+    "sleep",
+    "timer"
+  ],
+  "commands": [
+    {
+      "name": "dream-eater",
+      "title": "Toggle Dream Eater",
+      "subtitle": "Enable for 1 hour · or Disable",
+      "icon": "dream-eater.png",
+      "description": "Enable closed-lid sleep protection for one hour on charger or battery power, or restore normal sleep. Requires administrator approval.",
+      "mode": "no-view"
+    },
+    {
+      "name": "set-duration",
+      "title": "Dream Eater for…",
+      "subtitle": "Hours · Minutes · Seconds",
+      "icon": "dream-eater.png",
+      "description": "Keep awake with the lid closed on charger or battery power for an inline hours/minutes/seconds duration, up to 24 hours. Requires administrator approval.",
+      "mode": "no-view",
+      "arguments": [
+        {
+          "name": "hours",
+          "placeholder": "Hours",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "minutes",
+          "placeholder": "Minutes",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "seconds",
+          "placeholder": "Seconds",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "status",
+      "title": "Dream Eater Status",
+      "subtitle": "Check actual state · no background polling",
+      "icon": "dream-eater.png",
+      "description": "Read and verify Dream Eater status. The root subtitle records the time of this observation.",
+      "mode": "no-view"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "2.7.3"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "2.2.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "eslint": "^10.12.0",
+    "prettier": "^3.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.9.0"
+  },
+  "scripts": {
+    "dev": "ray develop",
+    "build": "ray build -e dist -o dist",
+    "lint": "ray lint",
+    "lint:code": "eslint src tests scripts && prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "check": "npm run typecheck && npm run test && npm run lint:code",
+    "prepare-store": "node scripts/prepare-store.mjs",
+    "prepublishOnly": "node -e \"console.error('This is a Raycast extension. Do not publish it to npm. See docs/STORE.md.'); process.exit(1)\"",
+    "check:node": "node scripts/check-node.mjs",
+    "predev": "node scripts/check-node.mjs",
+    "prebuild": "node scripts/check-node.mjs",
+    "prelint": "node scripts/check-node.mjs",
+    "prelint:code": "node scripts/check-node.mjs",
+    "pretypecheck": "node scripts/check-node.mjs",
+    "pretest": "node scripts/check-node.mjs",
+    "build:native": "node scripts/check-node.mjs && node scripts/build-closed-lid-helper.mjs --self-test",
+    "preinstall": "node scripts/check-node.mjs"
+  },
+  "engines": {
+    "node": "^22.22.2 || ^24.0.0"
+  }
+}
